@@ -3,28 +3,51 @@ import * as fs from "fs";
 
 export function activate(context: vscode.ExtensionContext) {
   let disposable = vscode.commands.registerCommand("generate-bloc-from-events.generate", async () => {
-    const eventFilePath = vscode.window.activeTextEditor?.document.fileName;
+    const currentFile = vscode.window.activeTextEditor?.document.fileName;
 
-    //* Wrong file selected
-    if (!eventFilePath || (eventFilePath!.indexOf("_event.dart") < 0 && eventFilePath!.indexOf("_events.dart") < 0)) {
-      vscode.window.showInformationMessage("Error! Wrong file.");
-      return;
-    }
+    let eventFilePath = "";
+    let blocFilePath = "";
 
-    //* Bloc file exists
-    const blocFilePath = eventFilePath?.replace(/_event.dart|_events.dart/, "_bloc.dart");
-    if (!blocFilePath) {
-      vscode.window.showInformationMessage("Couldn't find sing up to the right files");
-      return;
+    if (currentFile) {
+      //* If this is not event file
+      if (currentFile!.indexOf("_event.dart") < 0 && currentFile!.indexOf("_events.dart") < 0) {
+        //* If this is not bloc file
+        if (currentFile!.indexOf("_bloc.dart") < 0) {
+          //! Error! This is not bloc or event file
+          vscode.window.showInformationMessage("Error! Wrong file selected. Select Event or Bloc file.");
+          return false;
+        } else {
+          //* If this is BLOC-file
+          blocFilePath = currentFile;
+
+          //^ Try to find event file
+          eventFilePath = blocFilePath?.replace(/_bloc.dart|_blocs.dart/, "_event.dart");
+          if (fs.existsSync(eventFilePath) == false) {
+            eventFilePath = blocFilePath?.replace(/_bloc.dart|_blocs.dart/, "_events.dart");
+
+            if (fs.existsSync(eventFilePath) == false) {
+              //! Event file not founded
+              vscode.window.showInformationMessage("Could not find Event file");
+              return false;
+            }
+          }
+        }
+      } else {
+        //* If this is EVENT-file
+        eventFilePath = currentFile;
+        blocFilePath = eventFilePath?.replace(/_event.dart$|_events.dart$/, "_bloc.dart");
+      }
+    } else {
+      return false;
     }
 
     var blocTextCode: string = await fs.readFileSync(blocFilePath, "utf-8");
-    if (!blocTextCode) {
+    var eventsTextCode: string = await fs.readFileSync(eventFilePath, "utf-8");
+    if (!blocTextCode || !eventsTextCode) {
       return;
     }
 
     //* Events text code
-    const eventsTextCode = vscode.window.activeTextEditor?.document.getText();
     const mainEventName = eventsTextCode?.match(/abstract class (\w*)/)?.at(1);
     const mainStateName = blocTextCode?.match(/extends Bloc\<\w+,\s(\w+)/)?.at(1);
 

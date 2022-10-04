@@ -2,7 +2,7 @@
   "name": "generate-bloc-from-events",
   "displayName": "Generate Bloc from Events",
   "description": "Generation bloc file from events file",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "publisher": "TenraNeko",
   "icon": "images/logo.png",
@@ -20,7 +20,7 @@
     "commands": [
       {
         "command": "generate-bloc-from-events.generate",
-        "title": "Generate Bloc from Events"
+        "title": "Generate: Bloc from Events"
       }
     ]
   },
