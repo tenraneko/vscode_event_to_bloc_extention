@@ -3,6 +3,9 @@
   "displayName": "Generate Bloc from Events",
   "description": "Generation bloc file from events file",
   "version": "0.0.1",
+  "license": "MIT",
+  "publisher": "TenraNeko",
+  "icon": "images/logo.png",
   "engines": {
     "vscode": "^1.62.0"
   },
@@ -41,5 +44,10 @@
     "mocha": "^10.0.0",
     "typescript": "^4.7.4",
     "@vscode/test-electron": "^2.1.5"
-  }
+  },
+  "homepage": "https://github.com/tenraneko/vscode_event_to_bloc_extention",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/tenraneko/vscode_event_to_bloc_extention.git"
+	}
 }
