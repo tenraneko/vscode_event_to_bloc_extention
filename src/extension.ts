@@ -91,7 +91,7 @@ export function activate(context: vscode.ExtensionContext) {
               const functionName = `_${event[0].toLowerCase()}${event.slice(1)}`;
               blocCodeLines.splice(endBlocIndex, 0, `\t\ton<${event}>(${functionName});`);
               endFileIndex++;
-              blocCodeLines.splice(endFileIndex, 0, `\n\tFuture<void> ${functionName}(${event} event, Emitter<${mainStateName}> emit) async {}`);
+              blocCodeLines.splice(endFileIndex, 0, `\n\t\/\/\* ${event}\n\tFuture<void> ${functionName}(${event} event, Emitter<${mainStateName}> emit) async {}`);
               endFileIndex++;
               endBlocIndex++;
             }
