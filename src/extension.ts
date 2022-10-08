@@ -8,7 +8,9 @@ export function activate(context: vscode.ExtensionContext) {
     let eventFilePath = "";
     let blocFilePath = "";
 
-    if (currentFile) {
+    if (currentFile != undefined) {
+      console.log(currentFile);
+
       //* If this is not event file
       if (currentFile!.indexOf("_event.dart") < 0 && currentFile!.indexOf("_events.dart") < 0) {
         //* If this is not bloc file
@@ -72,7 +74,8 @@ export function activate(context: vscode.ExtensionContext) {
         for (let i = 0; i < blocCodeLines.length; i++) {
           const e = blocCodeLines[i];
           if (startFounded == false) {
-            if (e.match(/\.*class\s.*extends\s*Bloc\<\w*,\s\w*\>\s*{/)) {
+            let test = e.match(/\.*class\s.*extends\s*Bloc\<\w*,\s\w*\>\s*.*{/);
+            if (e.match(/\.*class\s.*extends\s*Bloc\<\w*,\s\w*\>\s*.*{/)) {
               startFounded = true;
             }
           } else {
