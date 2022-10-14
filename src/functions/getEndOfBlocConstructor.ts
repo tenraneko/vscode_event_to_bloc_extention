@@ -11,7 +11,7 @@ export function getEndOfBlocConstructor(bloc: string): number | undefined {
     for (let i = 0; i < lines.length - 1; i++) {
       const line = lines[i].trim().replace("\n", "");
 
-      if (startFounded == false && line.includes(`${bloc}({`)) {
+      if (startFounded == false && line.includes(`${bloc}(`)) {
         startFounded = true;
       } else if (startFounded == true && line.includes(`}`)) {
         index = i;

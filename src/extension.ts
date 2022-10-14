@@ -15,7 +15,7 @@ export function activate(context: vscode.ExtensionContext) {
       return;
     }
 
-    const listOfEventsFromParts: string[] | undefined = getEventsFromParts(blocData.parts, blocData.event);
+    const listOfEventsFromParts = getEventsFromParts(blocData.parts, blocData.event);
 
     const endBlocIndex = getEndOfBlocConstructor(blocData.bloc);
     const endIndex = getEndOfFile();
@@ -25,15 +25,20 @@ export function activate(context: vscode.ExtensionContext) {
     const newLinesBloc = [];
     const newLines = [];
 
-    if (listOfEventsFromParts != undefined && listOfEventsFromParts.length > 0) {
-      for (let index = 0; index < listOfEventsFromParts.length; index++) {
-        const event = listOfEventsFromParts[index];
+    if (listOfEventsFromParts != undefined) {
+      for (const key in listOfEventsFromParts) {
+        const eventsList = listOfEventsFromParts[key];
 
-        if (blocData.events.hasOwnProperty(event) == false) {
-          const functionName = `_${event[0].toLowerCase()}${event.slice(1)}`;
+        newLinesBloc.push(`\t\t//& ${key}`);
+        for (let r = 0; r < eventsList.length; r++) {
+          const event = eventsList[r];
 
-          newLinesBloc.push(`\t\ton<${event}>(${functionName});`);
-          newLines.push(`\n\t\/\/\* ${event}\n\tFuture<void> ${functionName}(${event} event, Emitter<${blocData.state}> emit) async {}`);
+          if (blocData.events.hasOwnProperty(event) == false) {
+            const functionName = `_${event[0].toLowerCase()}${event.slice(1)}`;
+
+            newLinesBloc.push(`\t\ton<${event}>(${functionName});`);
+            newLines.push(`\n\t\/\/\* ${event}\n\tFuture<void> ${functionName}(${event} event, Emitter<${blocData.state}> emit) async {}`);
+          }
         }
       }
     }

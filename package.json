@@ -2,7 +2,7 @@
   "name": "generate-bloc-from-events",
   "displayName": "Generate Bloc from Events",
   "description": "Generation bloc file from events file",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "license": "MIT",
   "publisher": "TenraNeko",
   "icon": "images/logo.png",

@@ -1,7 +1,7 @@
 import { getPartContent } from "./getPartContent";
 
-export function getEventsFromParts(parts: string[], mainEventClass: string): string[] | undefined {
-  const listOfEvents = [];
+export function getEventsFromParts(parts: string[], mainEventClass: string) {
+  const listOfEvents = Object();
 
   for (const index in parts) {
     const part = parts[index];
@@ -17,11 +17,11 @@ export function getEventsFromParts(parts: string[], mainEventClass: string): str
       //^ Add events to array
       const events = partContent.match(regex);
       if (events != undefined && events.length > 0) {
-        listOfEvents.push(...events);
+        listOfEvents[part] = events;
       }
     } catch (error) {
       return undefined;
     }
   }
-  return listOfEvents.length > 0 ? listOfEvents : undefined;
+  return listOfEvents;
 }
