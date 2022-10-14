@@ -2,7 +2,7 @@
   "name": "generate-bloc-from-events",
   "displayName": "Generate Bloc from Events",
   "description": "Generation bloc file from events file",
-  "version": "0.0.3",
+  "version": "0.2.0",
   "license": "MIT",
   "publisher": "TenraNeko",
   "icon": "images/logo.png",
@@ -13,6 +13,7 @@
     "Other"
   ],
   "activationEvents": [
+    "onDebug",
     "onCommand:generate-bloc-from-events.generate"
   ],
   "main": "./out/extension.js",
