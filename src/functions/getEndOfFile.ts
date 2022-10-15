@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 
 export function getEndOfFile(): number | undefined {
-  const lines = vscode.window.activeTextEditor?.document.getText().split("\r");
+  const lines = vscode.window.activeTextEditor?.document.getText().split("\n");
 
   let index: number | undefined = undefined;
 

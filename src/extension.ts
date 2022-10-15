@@ -17,10 +17,10 @@ export function activate(context: vscode.ExtensionContext) {
 
     const listOfEventsFromParts = getEventsFromParts(blocData.parts, blocData.event);
 
-    const endBlocIndex = getEndOfBlocConstructor(blocData.bloc);
-    const endIndex = getEndOfFile();
+    const blocConstructor = getEndOfBlocConstructor(blocData.bloc);
+    let endIndex = getEndOfFile();
 
-    if (endIndex == undefined || endBlocIndex == undefined) return;
+    if (endIndex == undefined || blocConstructor.endIndex == undefined) return;
 
     const newLinesBloc = [];
     const newLines = [];
@@ -29,7 +29,8 @@ export function activate(context: vscode.ExtensionContext) {
       for (const key in listOfEventsFromParts) {
         const eventsList = listOfEventsFromParts[key];
 
-        newLinesBloc.push(`\t\t//& ${key}`);
+        //: TODO add sort for functions
+        // newLinesBloc.push(`\t\t//& ${key}`);
         for (let r = 0; r < eventsList.length; r++) {
           const event = eventsList[r];
 
@@ -44,8 +45,19 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     const lines = vscode.window.activeTextEditor?.document.getText().split("\n");
+
+    if (blocConstructor.hasConstructor == false) {
+      lines![blocConstructor.startIndex!] = lines![blocConstructor.startIndex!].replace(/\{\.*\}|\;/, "");
+
+      lines?.splice(blocConstructor.startIndex! + 1, 0, "{");
+      lines?.splice(blocConstructor.startIndex! + 2, 0, "}");
+
+      blocConstructor.endIndex = blocConstructor.endIndex! + 1;
+      endIndex = endIndex + 2;
+    }
+
     lines?.splice(endIndex, 0, newLines.join("\n\r"));
-    lines?.splice(endBlocIndex, 0, newLinesBloc.join("\n"));
+    lines?.splice(blocConstructor.endIndex!, 0, newLinesBloc.join("\n"));
 
     fs.writeFileSync(vscode.window.activeTextEditor!.document.fileName, lines!.join("\n"), "utf-8");
 
