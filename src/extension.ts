@@ -37,7 +37,7 @@ export function activate(context: vscode.ExtensionContext) {
           if (blocData.events.hasOwnProperty(event) == false) {
             const functionName = `_${event[0].toLowerCase()}${event.slice(1)}`;
 
-            newLinesBloc.push(`\t\ton<${event}>(${functionName});`);
+            newLinesBloc.push(`\t\t\ton<${event}>(${functionName});`);
             newLines.push(`\n\t\/\/\* ${event}\n\tFuture<void> ${functionName}(${event} event, Emitter<${blocData.state}> emit) async {}`);
           }
         }
@@ -47,12 +47,13 @@ export function activate(context: vscode.ExtensionContext) {
     const lines = vscode.window.activeTextEditor?.document.getText().split("\n");
 
     if (blocConstructor.hasConstructor == false) {
-      lines![blocConstructor.startIndex!] = lines![blocConstructor.startIndex!].replace(/\{\.*\}|\;/, "");
+      let test = lines![blocConstructor.startIndex!];
+      lines![blocConstructor.startIndex!] = lines![blocConstructor.startIndex!].replace(/\{\.*\}|\;/, "{");
 
-      lines?.splice(blocConstructor.startIndex! + 1, 0, "{");
-      lines?.splice(blocConstructor.startIndex! + 2, 0, "}");
+      // lines?.splice(blocConstructor.startIndex! + 1, 0, "{");
+      lines?.splice(blocConstructor.startIndex! + 1, 0, "\t}");
 
-      blocConstructor.endIndex = blocConstructor.endIndex! + 1;
+      blocConstructor.endIndex = blocConstructor.endIndex! - 5;
       endIndex = endIndex + 2;
     }
 
