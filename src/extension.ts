@@ -5,12 +5,15 @@ import { BlocDataModel } from "./models/blocIDataModel";
 import { getEventsFromParts } from "./functions/getEventsFromParts";
 import { getEndOfFile } from "./functions/getEndOfFile";
 import { getEndOfBlocConstructor } from "./functions/getEndOfBlocConstructor";
+import { createBlocCommand } from "./commands/createBlocCommand";
 
 export function activate(context: vscode.ExtensionContext) {
+  context.subscriptions.push(vscode.commands.registerCommand("bloc-pika.createBloc", createBlocCommand));
+
   let disposable = vscode.commands.registerCommand("generate-bloc-from-events.generate", async () => {
     const blocData: BlocDataModel | undefined = getBlocData();
 
-    if (blocData == undefined) {
+    if (blocData === undefined) {
       vscode.window.showErrorMessage("Error! Wrong file selected. Open Bloc file in editor.");
       return;
     }
@@ -20,12 +23,14 @@ export function activate(context: vscode.ExtensionContext) {
     const blocConstructor = getEndOfBlocConstructor(blocData.bloc);
     let endIndex = getEndOfFile();
 
-    if (endIndex == undefined || blocConstructor.endIndex == undefined) return;
+    if (endIndex === undefined || blocConstructor.endIndex === undefined) {
+      return;
+    }
 
     const newLinesBloc = [];
     const newLines = [];
 
-    if (listOfEventsFromParts != undefined) {
+    if (listOfEventsFromParts !== undefined) {
       for (const key in listOfEventsFromParts) {
         const eventsList = listOfEventsFromParts[key];
 
@@ -34,7 +39,7 @@ export function activate(context: vscode.ExtensionContext) {
         for (let r = 0; r < eventsList.length; r++) {
           const event = eventsList[r];
 
-          if (blocData.events.hasOwnProperty(event) == false) {
+          if (blocData.events.hasOwnProperty(event) === false) {
             const functionName = `_${event[0].toLowerCase()}${event.slice(1)}`;
 
             newLinesBloc.push(`\t\t\ton<${event}>(${functionName});`);
@@ -46,7 +51,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     const lines = vscode.window.activeTextEditor?.document.getText().split("\n");
 
-    if (blocConstructor.hasConstructor == false) {
+    if (blocConstructor.hasConstructor === false) {
       let test = lines![blocConstructor.startIndex!];
       lines![blocConstructor.startIndex!] = lines![blocConstructor.startIndex!].replace(/\{\.*\}|\;/, "{");
 

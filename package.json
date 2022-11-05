@@ -1,8 +1,8 @@
 {
-  "name": "generate-bloc-from-events",
-  "displayName": "Generate Bloc from Events",
+  "name": "bloc-pika",
+  "displayName": "Bloc Pika",
   "description": "Generation bloc file from events file",
-  "version": "0.2.3",
+  "version": "0.5.0",
   "license": "MIT",
   "publisher": "TenraNeko",
   "icon": "images/logo.png",
@@ -13,17 +13,30 @@
     "Other"
   ],
   "activationEvents": [
-    "onDebug",
-    "onCommand:generate-bloc-from-events.generate"
+    "onCommand:bloc-pika.generate",
+    "onCommand:bloc-pika.createBloc"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "generate-bloc-from-events.generate",
-        "title": "Generate: Bloc from Events"
+        "command": "bloc-pika.createBloc",
+        "title": "Bloc Pika: Create Bloc"
+      },
+      {
+        "command": "bloc-pika.generate",
+        "title": "Bloc Pika: Bloc from Events"
       }
-    ]
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "bloc-pika.createBloc",
+          "when": "filesExplorerFocus",
+          "group": "bloc-pika@1"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -34,17 +47,17 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.62.0",
     "@types/glob": "^7.2.0",
     "@types/mocha": "^9.1.1",
     "@types/node": "16.x",
-    "@typescript-eslint/eslint-plugin": "^5.31.0",
-    "@typescript-eslint/parser": "^5.31.0",
-    "eslint": "^8.20.0",
+    "@types/vscode": "^1.62.0",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/parser": "^5.42.0",
+    "@vscode/test-electron": "^2.2.0",
+    "eslint": "^8.26.0",
     "glob": "^8.0.3",
-    "mocha": "^10.0.0",
-    "typescript": "^4.7.4",
-    "@vscode/test-electron": "^2.1.5"
+    "mocha": "^10.1.0",
+    "typescript": "^4.8.4"
   },
   "homepage": "https://github.com/tenraneko/vscode_event_to_bloc_extention",
   "repository": {
