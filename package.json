@@ -2,7 +2,7 @@
   "name": "bloc-pika",
   "displayName": "Bloc Pika",
   "description": "Generation bloc file from events file",
-  "version": "0.5.0",
+  "version": "0.5.2",
   "license": "MIT",
   "publisher": "TenraNeko",
   "icon": "images/logo.png",

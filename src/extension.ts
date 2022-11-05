@@ -10,7 +10,7 @@ import { createBlocCommand } from "./commands/createBlocCommand";
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(vscode.commands.registerCommand("bloc-pika.createBloc", createBlocCommand));
 
-  let disposable = vscode.commands.registerCommand("generate-bloc-from-events.generate", async () => {
+  let disposable = vscode.commands.registerCommand("bloc-pika.generate", async () => {
     const blocData: BlocDataModel | undefined = getBlocData();
 
     if (blocData === undefined) {
