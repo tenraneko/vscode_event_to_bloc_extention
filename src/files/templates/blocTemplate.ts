@@ -11,6 +11,7 @@ class ${blocClassName}Bloc extends Bloc<${blocClassName}Event, ${blocClassName}S
     on<Initial${blocClassName}Event>(_initial${blocClassName}Event);
   }
 
+  //* Initial${blocClassName}Event
   Future<void> _initial${blocClassName}Event(Initial${blocClassName}Event event, Emitter<${blocClassName}State> emit) async {
     // Initial Event
   }
