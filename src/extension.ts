@@ -20,7 +20,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     const listOfEventsFromParts = getEventsFromParts(blocData.parts, blocData.event);
 
-    const blocConstructor = getEndOfBlocConstructor(blocData.bloc);
+    const blocConstructor = getEndOfBlocConstructor();
     let endIndex = getEndOfFile();
 
     if (endIndex === undefined || blocConstructor.endIndex === undefined) {
@@ -42,7 +42,7 @@ export function activate(context: vscode.ExtensionContext) {
           if (blocData.events.hasOwnProperty(event) === false) {
             const functionName = `_${event[0].toLowerCase()}${event.slice(1)}`;
 
-            newLinesBloc.push(`\t\t\ton<${event}>(${functionName});`);
+            newLinesBloc.push(`\t\ton<${event}>(${functionName});`);
             newLines.push(`\n\t\/\/\* ${event}\n\tFuture<void> ${functionName}(${event} event, Emitter<${blocData.state}> emit) async {}`);
           }
         }
@@ -62,7 +62,10 @@ export function activate(context: vscode.ExtensionContext) {
       endIndex = endIndex + 2;
     }
 
-    lines?.splice(endIndex, 0, newLines.join("\n\r"));
+    let endFileLines = lines![endIndex].split("}");
+    // endFileLines.pop();
+
+    lines![endIndex] = "}".repeat(endFileLines.length - 2) + newLines.join("\n\r") + "\n\r}";
     lines?.splice(blocConstructor.endIndex!, 0, newLinesBloc.join("\n"));
 
     fs.writeFileSync(vscode.window.activeTextEditor!.document.fileName, lines!.join("\n"), "utf-8");

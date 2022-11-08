@@ -8,7 +8,9 @@ export function getEventsFromParts(parts: string[], mainEventClass: string) {
     try {
       //^ Get content from part files
       const partContent = getPartContent(part);
-      if (partContent == undefined) continue;
+      if (partContent === undefined) {
+        continue;
+      }
 
       //& Regex to find events
       var pattern = "\\.*(?<=class\\s)(\\w+)(?=\\sextends\\s" + mainEventClass + ")";
@@ -16,7 +18,7 @@ export function getEventsFromParts(parts: string[], mainEventClass: string) {
 
       //^ Add events to array
       const events = partContent.match(regex);
-      if (events != undefined && events.length > 0) {
+      if (events !== null && events!.length > 0) {
         listOfEvents[part] = events;
       }
     } catch (error) {
