@@ -2,7 +2,7 @@
   "name": "bloc-pika",
   "displayName": "Bloc Pika",
   "description": "Generation bloc file from events file",
-  "version": "0.5.5",
+  "version": "0.5.8",
   "license": "MIT",
   "publisher": "TenraNeko",
   "icon": "images/logo.png",
@@ -14,7 +14,8 @@
   ],
   "activationEvents": [
     "onCommand:bloc-pika.generate",
-    "onCommand:bloc-pika.createBloc"
+    "onCommand:bloc-pika.createBloc",
+    "onLanguage:dart"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -25,7 +26,12 @@
       },
       {
         "command": "bloc-pika.generate",
-        "title": "Bloc Pika: Bloc from Events"
+        "title": "Bloc Pika: Bloc from Events",
+        "category": "BlocPika",
+        "icon": {
+          "dark": "images/svg/bloc.svg",
+          "light": "images/svg/bloc.svg"
+        }
       }
     ],
     "menus": {
@@ -34,6 +40,13 @@
           "command": "bloc-pika.createBloc",
           "when": "filesExplorerFocus",
           "group": "bloc-pika@1"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "bloc-pika.generate",
+          "when": "resourceFilename =~ /_bloc/",
+          "group": "navigation@1"
         }
       ]
     }

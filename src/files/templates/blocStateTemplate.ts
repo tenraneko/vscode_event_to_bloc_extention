@@ -14,6 +14,8 @@ class ${blocClassName}State extends Equatable {
   @override
   List<Object?> get props => [status];
 
+  bool get isLoading => status == ${blocClassName}Status.loading;
+
   ${blocClassName}State copyWith({
     ${blocClassName}Status? status,
   }) {

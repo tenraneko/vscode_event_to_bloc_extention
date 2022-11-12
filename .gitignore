@@ -3,3 +3,4 @@
 .yarnrc
 node_modules
 out
+*.vsix
