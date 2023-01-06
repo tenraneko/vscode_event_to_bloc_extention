@@ -5,6 +5,7 @@ part of '${blocFilename}_bloc.dart';
 enum ${blocClassName}Status { initial, loading, success, failure }
 
 class ${blocClassName}State extends Equatable {
+  
   final ${blocClassName}Status status;
 
   const ${blocClassName}State({

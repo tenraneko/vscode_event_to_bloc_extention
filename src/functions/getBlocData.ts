@@ -2,12 +2,16 @@ import * as vscode from "vscode";
 import { BlocDataModel } from "../models/blocIDataModel";
 
 export function getBlocData(): BlocDataModel | undefined {
-  if (vscode.window.activeTextEditor?.document.languageId != "dart") return undefined;
+  if (vscode.window.activeTextEditor?.document.languageId != "dart") {
+    return undefined;
+  }
 
   try {
     //^ Editor text
     const content = vscode.window.activeTextEditor?.document.getText();
-    if (content == undefined) return undefined;
+    if (content == undefined) {
+      return undefined;
+    }
 
     //^ Getting bloc data
     const matchData = content.matchAll(new RegExp(/\.*class\s+(\w+)\s+extends\s+Bloc<(\w+),\s(\w+)/, "gm"));
@@ -19,7 +23,7 @@ export function getBlocData(): BlocDataModel | undefined {
 
       if (matchParts != undefined && matchParts.length > 0) {
         //^ Getting bloc events
-        const matchBlocEvents = content.match(new RegExp(/\.*(?<=on\<)(\w+)(\>\()(\w+)(?=\)\;)/, "gm"));
+        const matchBlocEvents = content.match(new RegExp(/\.*(?<=on\<)(\w+)(\>\()(.*)(?=\)\;)/, "gm"));
         const blocEvents = Object();
         if (matchBlocEvents != undefined && matchBlocEvents.length > 0) {
           for (const e in matchBlocEvents) {
