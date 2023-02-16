@@ -6,6 +6,16 @@ import { getEventsFromParts } from "./functions/getEventsFromParts";
 import { getEndOfFile } from "./functions/getEndOfFile";
 import { getEndOfBlocConstructor } from "./functions/getEndOfBlocConstructor";
 import { createBlocCommand } from "./commands/createBlocCommand";
+import { BlocCodeActionProvider } from "./code_actions/blocCodeActionProvider";
+import {
+  wrapWithBlocBuilder,
+  wrapWithBlocListener,
+  wrapWithBlocConsumer,
+  wrapWithBlocProvider,
+  wrapWithRepositoryProvider,
+  wrapWithMultiBlocProvider,
+  wrapWithMultiRepositoryProvider,
+} from "./commands";
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(vscode.commands.registerCommand("bloc-pika.createBloc", createBlocCommand));
@@ -73,6 +83,16 @@ export function activate(context: vscode.ExtensionContext) {
     return true;
   });
 
-  context.subscriptions.push(disposable);
+  context.subscriptions.push(
+    vscode.commands.registerCommand("bloc-pika.wrapBlocbuilder", wrapWithBlocBuilder),
+    vscode.commands.registerCommand("bloc-pika.wrapBloclistener", wrapWithBlocListener),
+    vscode.commands.registerCommand("bloc-pika.wrapBlocconsumer", wrapWithBlocConsumer),
+    vscode.commands.registerCommand("bloc-pika.wrapBlocprovider", wrapWithBlocProvider),
+    vscode.commands.registerCommand("bloc-pika.wrapRepositoryprovider", wrapWithRepositoryProvider),
+    vscode.commands.registerCommand("bloc-pika.wrapMultiBlocprovider", wrapWithMultiBlocProvider),
+    vscode.commands.registerCommand("bloc-pika.wrapMultiRepositoryprovider", wrapWithMultiRepositoryProvider),
+    vscode.languages.registerCodeActionsProvider({ language: "dart", scheme: "file" }, new BlocCodeActionProvider()),
+    disposable
+  );
 }
 export function deactivate() {}

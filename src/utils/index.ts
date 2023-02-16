@@ -1,2 +1,4 @@
 export * from "./getBlocFilename";
-export * from "./getBlocClassname";
+export * from "./getBlocClassName";
+export * from "./getSelectedText";
+export * from "./wrapWith";
