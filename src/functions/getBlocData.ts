@@ -14,7 +14,7 @@ export function getBlocData(): BlocDataModel | undefined {
     }
 
     //^ Getting bloc data
-    const matchData = content.matchAll(new RegExp(/\.*class\s+(\w+)\s+extends\s+Bloc<(\w+),\s(\w+)/, "gm"));
+    const matchData = content.matchAll(new RegExp(/\.*class\s+(\w+).*\s+extends\s+Bloc<(\w+),\s(\w+)/, "gm"));
     const matchDataValue = matchData.next().value;
 
     if (matchDataValue != undefined && matchDataValue.length >= 4) {

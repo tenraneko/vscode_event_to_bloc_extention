@@ -66,16 +66,19 @@ export function activate(context: vscode.ExtensionContext) {
       lines![blocConstructor.startIndex!] = lines![blocConstructor.startIndex!].replace(/\{\.*\}|\;/, "{");
 
       // lines?.splice(blocConstructor.startIndex! + 1, 0, "{");
-      lines?.splice(blocConstructor.startIndex! + 1, 0, "\t}");
+      // lines?.splice(blocConstructor.endIndex!, 0, "}");
 
       blocConstructor.endIndex = blocConstructor.endIndex! - 5;
-      endIndex = endIndex + 2;
+      // endIndex = endIndex + 1;
     }
 
     let endFileLines = lines![endIndex].split("}");
     // endFileLines.pop();
 
-    lines![endIndex] = "}".repeat(endFileLines.length - 2) + newLines.join("\n\r") + "\n\r}";
+    if (endFileLines.length > 2) {
+      lines![endIndex] = "}".repeat(endFileLines.length - 2);
+    }
+    lines![endIndex] = newLines.join("\n\r") + "\n\r}";
     lines?.splice(blocConstructor.endIndex!, 0, newLinesBloc.join("\n"));
 
     fs.writeFileSync(vscode.window.activeTextEditor!.document.fileName, lines!.join("\n"), "utf-8");
