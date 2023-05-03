@@ -2,7 +2,7 @@
   "name": "bloc-pika",
   "displayName": "Bloc Pika",
   "description": "Generation bloc file from events file",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "license": "MIT",
   "publisher": "TenraNeko",
   "icon": "images/logo.png",
@@ -36,37 +36,37 @@
       {
         "command": "bloc-pika.wrapBlocbuilder",
         "title": "Pika: Wrap with BlocBuilder",
-        "group": "bloc-pika@1"
+        "group": "bloc-pika@3"
       },
       {
         "command": "bloc-pika.wrapBloclistener",
         "title": "Pika: Wrap with BlocListener",
-        "group": "bloc-pika@1"
+        "group": "bloc-pika@3"
       },
       {
         "command": "bloc-pika.wrapBlocconsumer",
         "title": "Pika: Wrap with BlocConsumer",
-        "group": "bloc-pika@1"
+        "group": "bloc-pika@3"
       },
       {
         "command": "bloc-pika.wrapBlocprovider",
         "title": "Pika: Wrap with BlocProvider",
-        "group": "bloc-pika@1"
+        "group": "bloc-pika@3"
       },
       {
         "command": "bloc-pika.wrapRepositoryprovider",
         "title": "Pika: Wrap with RepositoryProvider",
-        "group": "bloc-pika@1"
+        "group": "bloc-pika@3"
       },
       {
         "command": "bloc-pika.wrapMultiBlocprovider",
         "title": "Pika: Wrap with MultiBlocProvider",
-        "group": "bloc-pika@1"
+        "group": "bloc-pika@3"
       },
       {
         "command": "bloc-pika.wrapMultiRepositoryprovider",
         "title": "Pika: Wrap with MultiRepositoryProvider",
-        "group": "bloc-pika@1"
+        "group": "bloc-pika@3"
       }
     ],
     "menus": {
@@ -74,7 +74,7 @@
         {
           "command": "bloc-pika.createBloc",
           "when": "filesExplorerFocus",
-          "group": "bloc-pika@1"
+          "group": "bloc-pika@3"
         }
       ],
       "editor/title": [
@@ -88,37 +88,37 @@
         {
           "command": "bloc-pika.wrapBlocbuilder",
           "when": "editorLangId == dart",
-          "group": "bloc-pika@1"
+          "group": "bloc-pika@3"
         },
         {
           "command": "bloc-pika.wrapBloclistener",
           "when": "editorLangId == dart",
-          "group": "bloc-pika@1"
+          "group": "bloc-pika@3"
         },
         {
           "command": "bloc-pika.wrapBlocconsumer",
           "when": "editorLangId == dart",
-          "group": "bloc-pika@1"
+          "group": "bloc-pika@3"
         },
         {
           "command": "bloc-pika.wrapBlocprovider",
           "when": "editorLangId == dart",
-          "group": "bloc-pika@1"
+          "group": "bloc-pika@3"
         },
         {
           "command": "bloc-pika.wrapRepositoryprovider",
           "when": "editorLangId == dart",
-          "group": "bloc-pika@1"
+          "group": "bloc-pika@3"
         },
         {
           "command": "bloc-pika.wrapMultiBlocprovider",
           "when": "editorLangId == dart",
-          "group": "bloc-pika@1"
+          "group": "bloc-pika@3"
         },
         {
           "command": "bloc-pika.wrapMultiRepositoryprovider",
           "when": "editorLangId == dart",
-          "group": "bloc-pika@1"
+          "group": "bloc-pika@3"
         }
       ]
     }
